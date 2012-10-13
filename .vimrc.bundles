@@ -153,11 +153,15 @@
         if count(g:spf13_bundle_groups, 'html')
             Bundle 'amirh/HTML-AutoCloseTag'
             Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+            Bundle 'tpope/vim-haml'
         endif
 
     " Ruby
         if count(g:spf13_bundle_groups, 'ruby')
+            Bundle 'vim-ruby/vim-ruby'
             Bundle 'tpope/vim-rails'
+            Bundle 'kana/vim-textobj-user'
+            Bundle 'nelstrom/vim-textobj-rubyblock'
             let g:rubycomplete_buffer_loading = 1
             "let g:rubycomplete_classes_in_global = 1
             "let g:rubycomplete_rails = 1

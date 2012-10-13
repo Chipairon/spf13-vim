@@ -1,0 +1,189 @@
+
+"" Change default font so it does not cut letters in italic
+set guifont=Consolas:h12
+
+if has("gui_running")
+  " GUI is running or is about to start.
+  " set desired window size
+  set lines=35 columns=120
+endif
+
+"Prefer a slightly higher line height
+set linespace=3
+
+"Show lines numbers
+set number
+
+color Wombat
+
+"Map escape key to jj -- much faster
+imap jj <esc>
+
+" Switch between buffers
+noremap <tab> :bn<CR>
+noremap <S-tab> :bp<CR>
+
+" Ignore some binary, versioning and backup files when auto-completing
+set wildignore=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak
+" Set a lower priority for .old files
+set suffixes+=.old
+
+" Use only current file to autocomplete from tags
+" set complete=.,t
+"set complete=.,w,b,u,t,i
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" " made, these lines close it on movement in insert mode or when leaving
+" " insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" Needed for vim-ruby to work:
+filetype on
+compiler ruby
+
+" SnipMate config:
+let g:snips_trigger_key='uu'
+let g:snips_trigger_key_backwards='uu'
+
+
+" NerdTree
+let NERDTreeQuitOnOpen=1
+let NERDTreeShowBookmarks=0
+" open file browser
+map <leader>p :NERDTreeToggle<cr>
+"turn off nerdtree:
+let loaded_nerd_tree=1
+
+
+" EXTERNAL COPY / PASTE
+" Press F2 before and after pasting from an external Window, not required for
+" MacVim
+set pastetoggle=<F2>
+map <C-v> "+gP
+vmap <C-c> "+y
+
+" AutoClose
+let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'", '#{': '}'}
+let g:AutoCloseProtectedRegions = ["Character"] 
+
+" Easy commenting
+nnoremap // :TComment<CR>
+vnoremap // :TComment<CR>
+
+" Using Ctags
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" Ctrl+ç (is equivalent to Ctrl+\): open definition in new tab
+" Alt++ (is equivalent to Alt+]): open definition in vertical split 
+" C++ (equivalent to C+]): go to definition
+" C+T : jump back to caller.
+
+
+" ---------------------------------------------------------------------------
+" Ruby/Rails
+" ---------------------------------------------------------------------------
+"fix grep
+:let Grep_Find_Use_Xargs = 0
+:let Grep_Default_Filelist = '*.rb'
+
+
+let g:syntastic_ruby_exec = 'ruby19'
+let g:syntastic_ruby_exec = 'C:\Ruby193\bin\ruby.exe'
+
+" Execute current buffer as ruby
+map <S-r> :w !ruby<CR>
+
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets<cr>
+map <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
+
+" View routes or Gemfile in large split
+map <leader>gr :topleft :split config/routes.rb<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+
+" Skip to Model, View or Controller
+map <Leader>m :Rmodel
+map <Leader>v :Rview
+map <Leader>c :Rcontroller
+
+" Other files to consider Ruby
+au BufRead,BufNewFile Gemfile,Rakefile,Thorfile,config.ru,Vagrantfile,Guardfile,Capfile set ft=ruby
+
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+
+" Restore Size and Position of Gvim windows
+" To enable the saving and restoring of screen positions.
+let g:screen_size_restore_pos = 1
+if has("gui_running")
+  function! ScreenFilename()
+    if has('amiga')
+      return "s:.vimsize"
+    elseif has('win32')
+      return $HOME.'\_vimsize'
+    else
+      return $HOME.'/.vimsize'
+    endif
+  endfunction
+
+  function! ScreenRestore()
+    " Restore window size (columns and lines) and position
+    " from values stored in vimsize file.
+    " Must set font first so columns and lines are based on font size.
+    let f = ScreenFilename()
+    if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      for line in readfile(f)
+        let sizepos = split(line)
+        if len(sizepos) == 5 && sizepos[0] == vim_instance
+          silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
+          silent! execute "winpos ".sizepos[3]." ".sizepos[4]
+          return
+        endif
+      endfor
+    endif
+  endfunction
+
+  function! ScreenSave()
+    " Save window size and position.
+    if has("gui_running") && g:screen_size_restore_pos
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
+            \ (getwinposx()<0?0:getwinposx()) . ' ' .
+            \ (getwinposy()<0?0:getwinposy())
+      let f = ScreenFilename()
+      if filereadable(f)
+        let lines = readfile(f)
+        call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
+        call add(lines, data)
+      else
+        let lines = [data]
+      endif
+      call writefile(lines, f)
+    endif
+  endfunction
+
+  if !exists('g:screen_size_restore_pos')
+    let g:screen_size_restore_pos = 1
+  endif
+  if !exists('g:screen_size_by_vim_instance')
+    let g:screen_size_by_vim_instance = 1
+  endif
+  autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+  autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+endif

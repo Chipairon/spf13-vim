@@ -18,6 +18,7 @@
 " Environment {
     " Basics {
         set nocompatible        " must be first line
+        set background=dark     " Assume a dark background
         if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
           " on Linux use + register for copy-paste
           set clipboard=unnamedplus
@@ -180,20 +181,15 @@
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+   " autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 " }
 
 " Key (re)Mappings {
 
     "The default leader is '\', but many people prefer ',' as it's in a standard
-    "location. To override this behavior and set it back to '\' (or any other
-    "character) add let g:spf13_leader='\' in your .vimrc.bundles.local file
-    if !exists('g:spf13_leader')
-        let mapleader = ','
-    else
-        let mapleader=g:spf13_leader
-    endif
+    "location
+    let mapleader = ','
 
     " Easier moving in tabs and windows
     map <C-J> <C-W>j<C-W>_
@@ -332,18 +328,12 @@
         nmap <Leader>ac <Plug>ToggleAutoCloseMappings
     " }
 
-    " SnipMate {
-        " Setting the author var
-        " If forking, please overwrite in your .vimrc.local file
-        let g:snips_author = 'Steve Francia <steve.francia@gmail.com>'
-    " }
-
     " NerdTree {
         map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
         map <leader>e :NERDTreeFind<CR>
         nmap <leader>nt :NERDTreeFind<CR>
 
-        let NERDTreeShowBookmarks=1
+        let NERDTreeShowBookmarks=0
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
         let NERDTreeChDirMode=0
         let NERDTreeQuitOnOpen=1
@@ -413,6 +403,16 @@
 
      " TagBar {
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
+        let g:tagbar_type_ruby = {
+            \ 'kinds' : [
+                \ 'm:modules',
+                \ 'c:classes',
+                \ 'd:describes',
+                \ 'C:contexts',
+                \ 'f:methods',
+                \ 'F:singleton methods'
+            \ ]
+        \ }
      "}
 
      " PythonMode {
@@ -423,12 +423,12 @@
      " }
 
      " Fugitive {
-        nnoremap <silent> <leader>gs :Gstatus<CR>
-        nnoremap <silent> <leader>gd :Gdiff<CR>
-        nnoremap <silent> <leader>gc :Gcommit<CR>
-        nnoremap <silent> <leader>gb :Gblame<CR>
-        nnoremap <silent> <leader>gl :Glog<CR>
-        nnoremap <silent> <leader>gp :Git push<CR>
+    "    nnoremap <silent> <leader>gs :Gstatus<CR>
+    "   nnoremap <silent> <leader>gd :Gdiff<CR>
+    "    nnoremap <silent> <leader>gc :Gcommit<CR>
+    "    nnoremap <silent> <leader>gb :Gblame<CR>
+    "    nnoremap <silent> <leader>gl :Glog<CR>
+    "    nnoremap <silent> <leader>gp :Git push<CR>
      "}
 
      " neocomplcache {

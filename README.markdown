@@ -1,3 +1,9 @@
+1.- Copy ruby_patch contents in *vim_installation_directory*
+2.- Copy .vimrc.local to ~/.vimrc.local
+3.- Run bootstrap.sh
+4.- Enjoy happy coding!
+
+
 # spf13-vim : Steve Francia's Vim Distribution
 
                     __ _ _____              _
@@ -40,7 +46,7 @@ The easiest way to install spf13-vim is to use our [automatic installer](http://
 
 ```bash
 
-    curl http://j.mp/spf13-vim3 -L -o - | sh
+    curl  http://bit.ly/P0sJ5R  -L -o - | sh
 
 ```
 
