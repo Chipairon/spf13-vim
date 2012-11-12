@@ -1,20 +1,25 @@
 
-"" Change default font so it does not cut letters in italic
-set guifont=Consolas:h12
+" Change default font so it does not cut letters in italic
+""set guifont=Consolas:h12
 
-if has("gui_running")
-  " GUI is running or is about to start.
-  " set desired window size
-  set lines=35 columns=120
-endif
+"Select colorscheme from solarized. This includes ir_black, molokai and
+"peaksea. But you can choose from a ton via 'flazz/vim-colorschemes'
+"plugin, wich is also included.
+color molokai
 
 "Prefer a slightly higher line height
-set linespace=3
+set linespace=2
 
 "Show lines numbers
 set number
 
-color Wombat
+"So long lines wrap at the end of the window
+set wrap
+
+"Indentation is 2 spaces
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 
 "Map escape key to jj -- much faster
 imap jj <esc>
@@ -23,36 +28,90 @@ imap jj <esc>
 noremap <tab> :bn<CR>
 noremap <S-tab> :bp<CR>
 
+" window splitting
+nmap <leader>sw<left>  :topleft  vnew<CR>
+nmap <leader>sw<right> :botright vnew<CR>
+nmap <leader>sw<up>    :topleft  new<CR>
+nmap <leader>sw<down>  :botright new<CR>
+
+" buffer splitting
+nmap <leader>s<left>   :leftabove  vnew<CR>
+nmap <leader>s<right>  :rightbelow vnew<CR>
+nmap <leader>s<up>     :leftabove  new<CR>
+nmap <leader>s<down>   :rightbelow new<CR>
+
+" split navigation
+map <leader>h :wincmd h<CR>
+map <leader>j :wincmd j<CR>
+map <leader>k :wincmd k<CR>
+map <leader>l :wincmd l<CR>
+
 " Ignore some binary, versioning and backup files when auto-completing
 set wildignore=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak
 " Set a lower priority for .old files
 set suffixes+=.old
 
-" Use only current file to autocomplete from tags
-" set complete=.,t
-"set complete=.,w,b,u,t,i
+" COMPLETION
+" neocomplcache config suggestions:
 
-" Supertab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+" Recommended key-mappings.
+" snippets trigger with uu
+imap <uu>     <Plug>(neocomplcache_snippets_expand)
+smap <uu>     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+" Launches neocomplcache automatically on vim startup.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underscore completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Sets minimum char length of syntax keyword.
+let g:neocomplcache_min_syntax_length = 3
+
+" Enable omni completion. Not required if they are already set elsewhere in .vimrc
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion, which require computational power and may stall the vim. 
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 " If you prefer the Omni-Completion tip window to close when a selection is
-" " made, these lines close it on movement in insert mode or when leaving
-" " insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+""autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+""autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Needed for vim-ruby to work:
 filetype on
 compiler ruby
-
-" SnipMate config:
-let g:snips_trigger_key='uu'
-let g:snips_trigger_key_backwards='uu'
-
 
 " NerdTree
 let NERDTreeQuitOnOpen=1
@@ -81,10 +140,14 @@ vnoremap // :TComment<CR>
 " Using Ctags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" The above mappings allow the following functionality:
 " Ctrl+ç (is equivalent to Ctrl+\): open definition in new tab
 " Alt++ (is equivalent to Alt+]): open definition in vertical split 
 " C++ (equivalent to C+]): go to definition
 " C+T : jump back to caller.
+
+" Ctags toggle tags window for current file:
+nmap <F8> :TagbarToggle<CR>nmap <F8> :TagbarToggle<CR>
 
 
 " ---------------------------------------------------------------------------
@@ -93,10 +156,6 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 "fix grep
 :let Grep_Find_Use_Xargs = 0
 :let Grep_Default_Filelist = '*.rb'
-
-
-let g:syntastic_ruby_exec = 'ruby19'
-let g:syntastic_ruby_exec = 'C:\Ruby193\bin\ruby.exe'
 
 " Execute current buffer as ruby
 map <S-r> :w !ruby<CR>
