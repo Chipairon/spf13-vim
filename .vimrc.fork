@@ -1,6 +1,6 @@
 
 " Change default font so it does not cut letters in italic
-""set guifont=Consolas:h12
+set guifont="Ubuntu Mono 12"
 
 "Select colorscheme from solarized. This includes ir_black, molokai and
 "peaksea. But you can choose from a ton via 'flazz/vim-colorschemes'
@@ -23,6 +23,9 @@ set softtabstop=2
 
 "Map escape key to jj -- much faster
 imap jj <esc>
+
+"This should speed up completion
+set foldmethod=manual
 
 " Switch between buffers
 noremap <tab> :bn<CR>
@@ -50,6 +53,8 @@ map <leader>l :wincmd l<CR>
 set wildignore=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak
 " Set a lower priority for .old files
 set suffixes+=.old
+
+let g:ctrlp_working_path_mode = 'ra'
 
 " COMPLETION
 " neocomplcache config suggestions:
@@ -119,7 +124,7 @@ let NERDTreeShowBookmarks=0
 " open file browser
 map <leader>p :NERDTreeToggle<cr>
 "turn off nerdtree:
-let loaded_nerd_tree=1
+let loaded_nerd_tree=0
 
 
 " EXTERNAL COPY / PASTE
@@ -147,7 +152,7 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " C+T : jump back to caller.
 
 " Ctags toggle tags window for current file:
-nmap <F8> :TagbarToggle<CR>nmap <F8> :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 
 " ---------------------------------------------------------------------------
@@ -184,7 +189,9 @@ au BufRead,BufNewFile Gemfile,Rakefile,Thorfile,config.ru,Vagrantfile,Guardfile,
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_include_object = 1
+autocmd FileType ruby,eruby let g:rubycomplete_include_objectspace = 1
 
 " Restore Size and Position of Gvim windows
 " To enable the saving and restoring of screen positions.
