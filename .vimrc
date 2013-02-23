@@ -457,9 +457,7 @@
         ""let g:neocomplcache_force_overwrite_completefunc = 1
 
         " SuperTab like snippets behavior.
-        imap <silent><expr><TAB> neosnippet#expandable() ?
-                    \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-                    \ "\<C-e>" : "\<TAB>")
+        imap <silent><expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ? "\<C-e>" : "\<TAB>")
         smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
 
         " Define dictionary.
@@ -489,16 +487,14 @@
 
         inoremap <expr><C-g> neocomplcache#undo_completion()
         inoremap <expr><C-l> neocomplcache#complete_common_string()
-        inoremap <expr><CR> neocomplcache#complete_common_string()
 
         " <TAB>: completion.
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 
-        " <CR>: close popup
         " <s-CR>: close popup and save indent.
-        inoremap <expr><s-CR> pumvisible() ? neocomplcache#close_popup()"\<CR>" : "\<CR>"
-        inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+        inoremap <expr><s-CR> pumvisible() ? neocomplcache#complete_common_string()."\<CR>" : "\<CR>"
+        snoremap <expr><s-CR> pumvisible() ? neocomplcache#complete_common_string()."\<CR>" : "\<CR>"
 
         " <C-h>, <BS>: close popup and delete backword char.
         inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
