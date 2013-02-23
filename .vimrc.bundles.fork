@@ -5,4 +5,6 @@
 "colorscheme Wombat
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/sudo.vim'
-Bundle 'bbommarito/vim-slim'
+"Bundle 'slim-template/vim-slim'
+Bundle 'DAddYE/vim-slim'
+Bundle 'vim-scripts/bufexplorer.zip'

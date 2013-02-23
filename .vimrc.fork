@@ -1,3 +1,4 @@
+UnBundle 'Nerdtree'
 
 " Change default font so it does not cut letters in italic
 set guifont="Ubuntu Mono 12"
@@ -23,9 +24,6 @@ set softtabstop=2
 
 "Map escape key to jj -- much faster
 imap jj <esc>
-
-"This should speed up completion
-set foldmethod=manual
 
 " Switch between buffers
 noremap <tab> :bn<CR>
@@ -57,76 +55,77 @@ set suffixes+=.old
 let g:ctrlp_working_path_mode = 'ra'
 
 " COMPLETION
-" neocomplcache config suggestions:
+
+" neomplcache config suggestions:
 
 " Recommended key-mappings.
 " snippets trigger with uu
-imap <uu>     <Plug>(neocomplcache_snippets_expand)
-smap <uu>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-" Launches neocomplcache automatically on vim startup.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underscore completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Sets minimum char length of syntax keyword.
-let g:neocomplcache_min_syntax_length = 3
-
-" Enable omni completion. Not required if they are already set elsewhere in .vimrc
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion, which require computational power and may stall the vim. 
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-
-" If you prefer the Omni-Completion tip window to close when a selection is
-" made, these lines close it on movement in insert mode or when leaving
-" insert mode
-""autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-""autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" Needed for vim-ruby to work:
-filetype on
-compiler ruby
-
-" NerdTree
-let NERDTreeQuitOnOpen=1
-let NERDTreeShowBookmarks=0
-" open file browser
-map <leader>p :NERDTreeToggle<cr>
-"turn off nerdtree:
-let loaded_nerd_tree=0
-
-
+""""""imap <uu>     <Plug>(neocomplcache_snippets_expand)
+""""""smap <uu>     <Plug>(neocomplcache_snippets_expand)
+""""""inoremap <expr><C-g>     neocomplcache#undo_completion()
+""""""inoremap <expr><C-l>     neocomplcache#complete_common_string()
+""""""" <CR>: close popup and save indent.
+""""""inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+""""""" <TAB>: completion.
+""""""inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+""""""" <C-h>, <BS>: close popup and delete backword char.
+""""""inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+""""""inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+""""""inoremap <expr><C-y>  neocomplcache#close_popup()
+""""""inoremap <expr><C-e>  neocomplcache#cancel_popup()
+""""""
+""""""" SuperTab like snippets behavior.
+""""""imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+""""""smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+""""""
+""""""" For snippet_complete marker.
+""""""if has('conceal')
+""""""  set conceallevel=2 concealcursor=i
+""""""endif
+""""""" Launches neocomplcache automatically on vim startup.
+""""""let g:neocomplcache_enable_at_startup = 1
+""""""" Use smartcase.
+""""""let g:neocomplcache_enable_smart_case = 1
+""""""" Use camel case completion.
+""""""let g:neocomplcache_enable_camel_case_completion = 1
+""""""" Use underscore completion.
+""""""let g:neocomplcache_enable_underbar_completion = 1
+""""""" Sets minimum char length of syntax keyword.
+""""""let g:neocomplcache_min_syntax_length = 3
+""""""
+""""""" Enable omni completion. Not required if they are already set elsewhere in .vimrc
+""""""autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+""""""autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+""""""autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+""""""autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+""""""autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+""""""
+""""""" Enable heavy omni completion, which require computational power and may stall the vim. 
+""""""if !exists('g:neocomplcache_omni_patterns')
+""""""  let g:neocomplcache_omni_patterns = {}
+""""""endif
+""""""let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"""""""autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+""""""
+""""""" If you prefer the Omni-Completion tip window to close when a selection is
+""""""" made, these lines close it on movement in insert mode or when leaving
+""""""" insert mode
+""""""""autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+""""""""autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+""""""
+""""""" Needed for vim-ruby to work:
+""""""filetype on
+""""""compiler ruby
+""""""
+""""""" NerdTree
+""""""let NERDTreeQuitOnOpen=1
+""""""let NERDTreeShowBookmarks=0
+""""""" open file browser
+""""""map <leader>p :NERDTreeToggle<cr>
+"""""""turn off nerdtree:
+""""""let loaded_nerd_tree=0
+""""""
+""""""
 " EXTERNAL COPY / PASTE
 " Press F2 before and after pasting from an external Window, not required for
 " MacVim
@@ -159,8 +158,8 @@ nmap <F8> :TagbarToggle<CR>
 " Ruby/Rails
 " ---------------------------------------------------------------------------
 "fix grep
-:let Grep_Find_Use_Xargs = 0
-:let Grep_Default_Filelist = '*.rb'
+"":let Grep_Find_Use_Xargs = 0
+"":let Grep_Default_Filelist = '*.rb'
 
 " Execute current buffer as ruby
 map <S-r> :w !ruby<CR>
@@ -185,13 +184,14 @@ map <Leader>c :Rcontroller
 
 " Other files to consider Ruby
 au BufRead,BufNewFile Gemfile,Rakefile,Thorfile,config.ru,Vagrantfile,Guardfile,Capfile set ft=ruby
+autocmd BufNewFile,BufRead *.html.slim set filetype=slim
+"Auto completion
+let g:rubycomplete_buffer_loading = 1
 
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_include_object = 1
-autocmd FileType ruby,eruby let g:rubycomplete_include_objectspace = 1
+""""autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+""""autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+""""autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+""""autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 " Restore Size and Position of Gvim windows
 " To enable the saving and restoring of screen positions.
