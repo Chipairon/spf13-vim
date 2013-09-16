@@ -67,7 +67,7 @@
     " In your .vimrc.bundles.local file"
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc', 'scala']
+        let g:spf13_bundle_groups=['general', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc', 'snipmate']
     endif
 
     " To override all the included bundles, put
@@ -91,11 +91,7 @@
             Bundle 'jistr/vim-nerdtree-tabs'
             Bundle 'flazz/vim-colorschemes'
             Bundle 'mbbill/undotree'
-            Bundle 'myusuf3/numbers.vim'
             Bundle 'nathanaelkane/vim-indent-guides'
-            if !exists('g:spf13_no_views')
-                Bundle 'vim-scripts/restore_view.vim'
-            endif
             Bundle 'tpope/vim-abolish.git'
         endif
 
@@ -105,7 +101,6 @@
             Bundle 'scrooloose/syntastic'
             Bundle 'tpope/vim-fugitive'
             Bundle 'mattn/webapi-vim'
-            Bundle 'mattn/gist-vim'
             Bundle 'scrooloose/nerdcommenter'
             Bundle 'godlygeek/tabular'
             if executable('ctags')
@@ -115,21 +110,14 @@
 
     " Snippets & AutoComplete
         if count(g:spf13_bundle_groups, 'snipmate')
+            Bundle "MarcWeber/vim-addon-mw-utils"
+            Bundle "tomtom/tlib_vim"
             Bundle 'garbas/vim-snipmate'
-            Bundle 'honza/snipmate-snippets'
+            Bundle 'honza/vim-snippets'
             " Source support_function.vim to support snipmate-snippets.
             if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
                 source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
             endif
-        elseif count(g:spf13_bundle_groups, 'neocomplcache')
-            Bundle 'Shougo/neocomplcache'
-            Bundle 'Shougo/neosnippet'
-            Bundle 'honza/snipmate-snippets'
-        endif
-
-    " PHP
-        if count(g:spf13_bundle_groups, 'php')
-            Bundle 'spf13/PIV'
         endif
 
     " Python
@@ -148,12 +136,6 @@
             Bundle 'pangloss/vim-javascript'
             Bundle 'briancollins/vim-jst'
             Bundle 'kchmck/vim-coffee-script'
-        endif
-
-    " Java
-        if count(g:spf13_bundle_groups, 'scala')
-            Bundle 'derekwyatt/vim-scala'
-            Bundle 'derekwyatt/vim-sbt'
         endif
 
     " HTML
@@ -183,10 +165,6 @@
             Bundle 'Puppet-Syntax-Highlighting'
         endif
 
-    " Twig
-        if count(g:spf13_bundle_groups, 'twig')
-            Bundle 'beyondwords/vim-twig'
-        endif
     endif
 " }
 
