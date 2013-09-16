@@ -1,12 +1,37 @@
-UnBundle 'Nerdtree'
-
+"UnBundle 'Nerdtree'
 " Change default font so it does not cut letters in italic
 set guifont="Ubuntu Mono 12"
 
-"Select colorscheme from solarized. This includes ir_black, molokai and
-"peaksea. But you can choose from a ton via 'flazz/vim-colorschemes'
-"plugin, wich is also included.
-color molokai
+" set colors:
+" choose from http://vimcolorschemetest.googlecode.com/svn/html/index-html.html
+set t_Co=256
+if has('gui_running')
+  color molokai
+else
+  color solarized
+end
+
+" set color column at 80 characters
+setlocal colorcolumn=81
+highlight ColorColumn ctermbg=7
+highlight ColorColumn guibg=black
+
+" delegate colorscheme configuration to config/color/<colorscheme>.vim files
+autocmd ColorScheme * execute 'runtime config/color/'. g:colors_name .'.vim'
+
+" highlight the maximum textwidth limit using a colored column
+set colorcolumn=+1
+autocmd ColorScheme * highlight! link ColorColumn CursorColumn
+
+" terminals that I typically use have a dark background color
+set background=dark
+
+if &term =~ '256color'
+  " Disable Background Color Erase (BCE) so that color schemes
+  " work properly when Vim is used inside tmux and GNU screen.
+  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
 
 "Prefer a slightly higher line height
 set linespace=2
@@ -48,11 +73,15 @@ map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
 
 " Ignore some binary, versioning and backup files when auto-completing
-set wildignore=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak
+set wildignore+=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak,*.orig,*/public/*
 " Set a lower priority for .old files
 set suffixes+=.old
 
 let g:ctrlp_working_path_mode = 'ra'
+" Use git listing, including untracked files
+unlet g:ctrlp_user_command
+let g:ctrlp_user_command =
+  \ ['.git', 'cd %s && git ls-files . -co --exclude-standard']
 
 " COMPLETION
 
@@ -114,11 +143,11 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 """"""filetype on
 """"""compiler ruby
 """"""
-""""""" NerdTree
-""""""let NERDTreeQuitOnOpen=1
-""""""let NERDTreeShowBookmarks=0
-""""""" open file browser
-""""""map <leader>p :NERDTreeToggle<cr>
+" NerdTree
+let NERDTreeQuitOnOpen=1
+let NERDTreeShowBookmarks=0
+" open file browser
+map <leader>p :NERDTreeToggle<cr>
 """""""turn off nerdtree:
 """"""let loaded_nerd_tree=0
 """"""
@@ -181,6 +210,7 @@ map <Leader>c :Rcontroller
 
 " Other files to consider Ruby
 au BufRead,BufNewFile Gemfile,Rakefile,Thorfile,config.ru,Vagrantfile,Guardfile,Capfile set ft=ruby
+au BufRead,BufNewFile *.pdf.prawn set ft=ruby
 autocmd BufNewFile,BufRead *.html.slim set filetype=slim
 "Auto completion
 let g:rubycomplete_buffer_loading = 1
