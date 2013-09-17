@@ -10,6 +10,9 @@ else
   color solarized
 end
 
+" disable spell check, not well supported in no_gui
+setlocal nospell
+
 " set color column at 80 characters
 setlocal colorcolumn=81
 highlight ColorColumn ctermbg=7
