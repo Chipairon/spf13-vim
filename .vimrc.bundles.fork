@@ -1,10 +1,8 @@
 " My bundles:
 "
-" Wombat colorscheme
-"Bundle 'dsolstad/vim-wombat256i'
-"colorscheme Wombat
-Bundle 'flazz/vim-colorschemes'
-Bundle 'vim-scripts/sudo.vim'
-"Bundle 'slim-template/vim-slim'
-Bundle 'DAddYE/vim-slim'
-Bundle 'vim-scripts/bufexplorer.zip'
+"Bundle 'flazz/vim-colorschemes'
+"Bundle 'vim-scripts/sudo.vim'
+"Bundle 'DAddYE/vim-slim'
+"Bundle 'vim-scripts/bufexplorer.zip'
+"Bundle 'SirVer/ultisnips'
+"Bundle 'honza/vim-snippets'
