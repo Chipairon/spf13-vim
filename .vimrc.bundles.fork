@@ -3,6 +3,6 @@
 "Bundle 'flazz/vim-colorschemes'
 "Bundle 'vim-scripts/sudo.vim'
 "Bundle 'DAddYE/vim-slim'
-Bundle 'vim-scripts/bufexplorer.zip'
+Bundle 'jlanzarotta/bufexplorer'
 "Bundle 'SirVer/ultisnips'
 "Bundle 'honza/vim-snippets'

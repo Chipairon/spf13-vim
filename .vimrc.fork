@@ -87,6 +87,9 @@ imap jj <esc>
 noremap <tab> :bn<CR>
 noremap <S-tab> :bp<CR>
 
+" Show bufexplorer"
+noremap <leader>b :BufExplorer<CR>
+
 " window splitting
 nmap <leader>sw<left>  :topleft  vnew<CR>
 nmap <leader>sw<right> :botright vnew<CR>
