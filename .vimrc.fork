@@ -7,14 +7,15 @@ set t_Co=256
 if has('gui_running')
   color molokai
 else
-  color solarized
+  "color solarized
+  color molokai
 end
 
 " disable spell check, not well supported in no_gui
-setlocal nospell
+set nospell
 
 " set color column at 80 characters
-setlocal colorcolumn=81
+set colorcolumn=81
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=black
 
