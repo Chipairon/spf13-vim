@@ -3,3 +3,5 @@
 Bundle 'slim-template/vim-slim'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'digitaltoad/vim-jade'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'Raimondi/delimitMate'

@@ -198,7 +198,7 @@ vnoremap // :TComment<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " The above mappings allow the following functionality:
-" Ctrl+ç (is equivalent to Ctrl+\): open definition in new tab
+" Ctrl+ (is equivalent to Ctrl+\): open definition in new tab
 " Alt++ (is equivalent to Alt+]): open definition in vertical split 
 " C++ (equivalent to C+]): go to definition
 " C+T : jump back to caller.
