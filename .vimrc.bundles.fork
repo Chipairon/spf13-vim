@@ -2,3 +2,4 @@
 "
 Bundle 'slim-template/vim-slim'
 Bundle 'jlanzarotta/bufexplorer'
+Bundle 'digitaltoad/vim-jade'
