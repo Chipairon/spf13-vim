@@ -83,7 +83,7 @@ set autoread
 
 "Map escape key to jj -- much faster
 imap jj <esc>
-imap nn <esc>
+"imap nn <esc>
 
 
 " Keyboard  *******************************************************************
@@ -92,6 +92,7 @@ function Kbw()
   noremap l o
   noremap o l
   noremap L O
+  noremap O L
   "Search (N)ext -> (J)ump
   noremap j n
   noremap n j
@@ -107,10 +108,20 @@ function Kbw()
   noremap y h
   noremap H Y
   noremap Y H
+  " split navigation
+  map <leader>y :wincmd h<CR>
+  map <leader>n :wincmd j<CR>
+  map <leader>e :wincmd k<CR>
+  map <leader>o :wincmd l<CR>
 endfunction
 
 function Kbq()
   call UnmapWorkman()
+  " split navigation
+  map <leader>h :wincmd h<CR>
+  map <leader>j :wincmd j<CR>
+  map <leader>k :wincmd k<CR>
+  map <leader>l :wincmd l<CR>
 endfunction
 
 function UnmapWorkman()
@@ -154,11 +165,6 @@ nmap <leader>s<right>  :rightbelow vnew<CR>
 nmap <leader>s<up>     :leftabove  new<CR>
 nmap <leader>s<down>   :rightbelow new<CR>
 
-" split navigation
-map <leader>h :wincmd h<CR>
-map <leader>j :wincmd j<CR>
-map <leader>k :wincmd k<CR>
-map <leader>l :wincmd l<CR>
 
 " Ignore some binary, versioning and backup files when auto-completing
 set wildignore+=.svn,CVS,.git,*.swp,*.jpg,*.png,*.gif,*.pdf,*.bak,*.orig,*/public/*
@@ -205,6 +211,9 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Ctags toggle tags window for current file:
 nmap <F8> :TagbarToggle<CR>
+
+map <leader>rt :!ctags --tag-relative --extra=+f - Rf.git/tags --exclude=.git,pkg -languages=-javascript,sql<CR><CR>
+set tags+=.git/tags
 
 " remap Ultisnips for compatibility for YCM
 let g:UltiSnipsExpandTrigger = 'uu'
