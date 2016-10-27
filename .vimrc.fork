@@ -14,17 +14,15 @@ end
 " disable spell check, not well supported in no_gui
 set nospell
 
+" highlight the maximum textwidth limit using a colored column
 " set color column at 80 characters
-set colorcolumn=81
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=black
+set colorcolumn=81
+autocmd ColorScheme * highlight! link ColorColumn CursorColumn
 
 " delegate colorscheme configuration to config/color/<colorscheme>.vim files
 "autocmd ColorScheme * execute 'runtime config/color/'. g:colors_name .'.vim'
-
-" highlight the maximum textwidth limit using a colored column
-set colorcolumn=+1
-autocmd ColorScheme * highlight! link ColorColumn CursorColumn
 
 " terminals that I typically use have a dark background color
 set background=dark
@@ -262,9 +260,12 @@ au BufRead,BufNewFile Gemfile,Rakefile,Thorfile,config.ru,Vagrantfile,Guardfile,
 au BufRead,BufNewFile *.pdf.prawn set ft=ruby
 autocmd BufNewFile,BufRead *.html.slim set filetype=slim
 
+let g:syntastic_javascript_checkers = ['eslint']
+
 " Let .vimrc per directory overrides:
 " Example to execute current js file on node:
 " map <leader>t :w\|:!node %<cr>
 set exrc            " enable per-directory .vimrc files
 set secure          " disable unsafe commands in local .vimrc files
+
 
